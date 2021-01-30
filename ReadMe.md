@@ -40,6 +40,7 @@ What we else need
 - Device file interface
 - Some interaction with Radeon accelerant
 - LIBDRM to be ported and tell MESA to use it
+- Obviously the DRM module needs also to get loaded on boot
 
 Sorry If anythings wrong here, I am just a small programmer guy. :D
 
