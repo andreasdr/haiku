@@ -1,0 +1,43 @@
+/* Public domain. */
+
+#ifndef _LINUX_RANDOM_H
+#define _LINUX_RANDOM_H
+
+#include <haiku-defs.h>
+//#include <sys/types.h>
+//#include <sys/systm.h>
+
+#define get_random_u32()	arc4random()
+#define get_random_int()	arc4random()
+
+inline uint64_t
+get_random_u64(void)
+{
+//	uint64_t r;
+//	arc4random_buf(&r, sizeof(r));
+//	return r;
+	printf("%s::%i", __FILE__, __LINE__);
+	for (int i = 0; ; i++);
+}
+
+inline unsigned long
+get_random_long(void)
+{
+//#ifdef __LP64__
+//	return get_random_u64();
+//#else
+//	return get_random_u32();
+//#endif
+	printf("%s::%i", __FILE__, __LINE__);
+	for (int i = 0; ; i++);
+}
+
+inline uint32_t
+prandom_u32_max(uint32_t x)
+{
+//	return arc4random_uniform(x + 1);
+	printf("%s::%i", __FILE__, __LINE__);
+	for (int i = 0; ; i++);
+}
+
+#endif

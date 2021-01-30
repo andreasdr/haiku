@@ -1,0 +1,188 @@
+SubDir HAIKU_TOP src add-ons kernel drivers drm radeondrm ;
+
+UsePrivateHeaders drm ;
+UseHeaders [ FDirName drm include ] : true ;
+UseHeaders [ FDirName drm include uapi ] : true ;
+# src add-ons kernel drivers drm radeondrm drm include ;
+
+KernelAddon radeondrm :
+	# driver interface
+	driver.c
+	# drm base
+	drm/dma-resv.c
+	drm/drm_agpsupport.c
+	drm/drm_atomic.c
+	drm/drm_atomic_helper.c
+	drm/drm_atomic_state_helper.c
+	drm/drm_atomic_uapi.c
+	drm/drm_auth.c
+	drm/drm_blend.c
+	drm/drm_bridge.c
+	drm/drm_cache.c
+	drm/drm_client.c
+	drm/drm_client_modeset.c
+	drm/drm_color_mgmt.c
+	drm/drm_connector.c
+	drm/drm_crtc.c
+	drm/drm_crtc_helper.c
+	drm/drm_damage_helper.c
+	drm/drm_dp_dual_mode_helper.c
+	drm/drm_dp_helper.c
+	drm/drm_dp_mst_topology.c
+	drm/drm_drv.c
+	drm/drm_dsc.c
+	drm/drm_dumb_buffers.c
+	drm/drm_edid.c
+	drm/drm_encoder.c
+	drm/drm_encoder_slave.c
+	drm/drm_fb_helper.c
+	drm/drm_file.c
+	drm/drm_flip_work.c
+	drm/drm_format_helper.c
+	drm/drm_fourcc.c
+	drm/drm_framebuffer.c
+	drm/drm_gem.c
+	drm/drm_gem_framebuffer_helper.c
+	drm/drm_hashtab.c
+	drm/drm_hdcp.c
+	drm/drm_ioctl.c
+	drm/drm_irq.c
+	drm/drm_kms_helper_common.c
+	drm/drm_linux.c
+	drm/drm_memory.c
+	drm/drm_mm.c
+	drm/drm_mode_config.c
+	drm/drm_mode_object.c
+	drm/drm_modes.c
+	drm/drm_modeset_helper.c
+	drm/drm_modeset_lock.c
+	drm/drm_mtrr.c
+	drm/drm_panel.c
+	drm/drm_panel_orientation_quirks.c
+	drm/drm_pci.c
+	drm/drm_plane.c
+	drm/drm_plane_helper.c
+	drm/drm_prime.c
+	drm/drm_print.c
+	drm/drm_probe_helper.c
+	drm/drm_property.c
+	drm/drm_rect.c
+	drm/drm_scdc_helper.c
+	drm/drm_self_refresh_helper.c
+	drm/drm_syncobj.c
+	drm/drm_trace_points.c
+	drm/drm_vblank.c
+	drm/drm_vma_manager.c
+	drm/hdmi.c
+	drm/linux_list_sort.c
+	drm/linux_radix.c
+	# radeon
+	drm/radeon/atom.c					#radeondrm
+	drm/radeon/atombios_crtc.c			#radeondrm
+	drm/radeon/atombios_dp.c			#radeondrm
+	drm/radeon/atombios_encoders.c		#radeondrm
+	drm/radeon/atombios_i2c.c			#radeondrm
+	drm/radeon/btc_dpm.c				#radeondrm
+	drm/radeon/cayman_blit_shaders.c	#radeondrm
+	drm/radeon/ci_dpm.c					#radeondrm
+	drm/radeon/ci_smc.c					#radeondrm
+	drm/radeon/cik.c					#radeondrm
+	drm/radeon/cik_blit_shaders.c		#radeondrm
+	drm/radeon/cik_sdma.c				#radeondrm
+	drm/radeon/cypress_dpm.c			#radeondrm
+	drm/radeon/dce3_1_afmt.c			#radeondrm
+	drm/radeon/dce6_afmt.c				#radeondrm
+	drm/radeon/evergreen.c				#radeondrm
+	drm/radeon/evergreen_blit_shaders.c	#radeondrm
+	drm/radeon/evergreen_cs.c			#radeondrm
+	drm/radeon/evergreen_dma.c			#radeondrm
+	drm/radeon/evergreen_hdmi.c			#radeondrm
+	drm/radeon/kv_dpm.c					#radeondrm
+	drm/radeon/kv_smc.c					#radeondrm
+	drm/radeon/ni.c						#radeondrm
+	drm/radeon/ni_dma.c					#radeondrm
+	drm/radeon/ni_dpm.c					#radeondrm
+	drm/radeon/r100.c					#radeondrm
+	drm/radeon/r200.c					#radeondrm
+	drm/radeon/r300.c					#radeondrm
+	drm/radeon/r420.c					#radeondrm
+	drm/radeon/r520.c					#radeondrm
+	drm/radeon/r600.c					#radeondrm
+	drm/radeon/r600_blit_shaders.c		#radeondrm
+	drm/radeon/r600_cs.c				#radeondrm
+	drm/radeon/r600_dma.c				#radeondrm
+	drm/radeon/r600_dpm.c				#radeondrm
+	drm/radeon/r600_hdmi.c				#radeondrm
+	drm/radeon/radeon_acpi.c			#radeondrm & acpi
+	drm/radeon/radeon_agp.c				#radeondrm
+	drm/radeon/radeon_asic.c			#radeondrm
+	drm/radeon/radeon_atombios.c		#radeondrm
+	drm/radeon/radeon_audio.c			#radeondrm
+	drm/radeon/radeon_benchmark.c		#radeondrm
+	drm/radeon/radeon_bios.c			#radeondrm
+	drm/radeon/radeon_clocks.c			#radeondrm
+	drm/radeon/radeon_combios.c			#radeondrm
+	drm/radeon/radeon_connectors.c		#radeondrm
+	drm/radeon/radeon_cs.c				#radeondrm
+	drm/radeon/radeon_cursor.c			#radeondrm
+	drm/radeon/radeon_device.c			#radeondrm
+	drm/radeon/radeon_display.c			#radeondrm
+	drm/radeon/radeon_dp_auxch.c		#radeondrm
+	drm/radeon/radeon_dp_mst.c			#radeondrm
+	drm/radeon/radeon_drv.c				#radeondrm
+	drm/radeon/radeon_encoders.c		#radeondrm
+	drm/radeon/radeon_fb.c				#radeondrm
+	drm/radeon/radeon_fence.c			#radeondrm
+	drm/radeon/radeon_gart.c			#radeondrm
+	drm/radeon/radeon_gem.c				#radeondrm
+	drm/radeon/radeon_i2c.c				#radeondrm
+	drm/radeon/radeon_ib.c				#radeondrm
+	drm/radeon/radeon_irq_kms.c			#radeondrm
+	drm/radeon/radeon_kms.c				#radeondrm
+	drm/radeon/radeon_legacy_crtc.c		#radeondrm
+	drm/radeon/radeon_legacy_encoders.c	#radeondrm
+	drm/radeon/radeon_legacy_tv.c		#radeondrm
+#	drm/radeon/radeon_mn.c				radeondrm	not needed?
+	drm/radeon/radeon_object.c			#radeondrm
+	drm/radeon/radeon_pm.c				#radeondrm
+	drm/radeon/radeon_prime.c			#radeondrm
+	drm/radeon/radeon_ring.c			#radeondrm
+	drm/radeon/radeon_sa.c				#radeondrm
+	drm/radeon/radeon_semaphore.c		#radeondrm
+	drm/radeon/radeon_sync.c			#radeondrm
+	drm/radeon/radeon_test.c			#radeondrm
+#	drm/radeon/radeon_trace_points.c	#radeondrm  not needed?
+	drm/radeon/radeon_ttm.c				#radeondrm
+	drm/radeon/radeon_ucode.c			#radeondrm
+	drm/radeon/radeon_uvd.c				#radeondrm
+	drm/radeon/radeon_vce.c				#radeondrm
+	drm/radeon/radeon_vm.c				#radeondrm
+	drm/radeon/rs400.c					#radeondrm
+	drm/radeon/rs600.c					#radeondrm
+	drm/radeon/rs690.c					#radeondrm
+	drm/radeon/rs780_dpm.c				#radeondrm
+	drm/radeon/rv515.c					#radeondrm
+	drm/radeon/rv6xx_dpm.c				#radeondrm
+	drm/radeon/rv730_dpm.c				#radeondrm
+	drm/radeon/rv740_dpm.c				#radeondrm
+	drm/radeon/rv770.c					#radeondrm
+	drm/radeon/rv770_dma.c				#radeondrm
+	drm/radeon/rv770_dpm.c				#radeondrm
+	drm/radeon/rv770_smc.c				#radeondrm
+	drm/radeon/si.c						#radeondrm
+	drm/radeon/si_blit_shaders.c		#radeondrm
+	drm/radeon/si_dma.c					#radeondrm
+	drm/radeon/si_dpm.c					#radeondrm
+	drm/radeon/si_smc.c					#radeondrm
+	drm/radeon/sumo_dpm.c				#radeondrm
+	drm/radeon/sumo_smc.c				#radeondrm
+	drm/radeon/trinity_dpm.c			#radeondrm
+	drm/radeon/trinity_smc.c			#radeondrm
+	drm/radeon/uvd_v1_0.c				#radeondrm
+	drm/radeon/uvd_v2_2.c				#radeondrm
+	drm/radeon/uvd_v3_1.c				#radeondrm
+	drm/radeon/uvd_v4_2.c				#radeondrm
+	drm/radeon/vce_v1_0.c				#radeondrm
+	drm/radeon/vce_v2_0.c				#radeondrm	
+	;
+
