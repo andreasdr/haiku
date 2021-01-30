@@ -10,6 +10,39 @@ Haiku is an open-source operating system that specifically targets personal
 computing. Inspired by the BeOS, Haiku is fast, simple to use, easy to learn
 and yet very powerful.
 
+WHAAATTTTZ DIS FORK EXACTLY???
+--------------------------------
+
+NOTE: This is my DRM port attempt based on OpenBSDs DRM kernel modules.
+I choosed OpenBSD because they have ported DRM in a way I think I can maybe somehow cope with.
+Porting directly from Linux would not work for me as it would cost much more time and knowledge.
+
+OpenBSD people did a great job by adding a kind of Linux layer that can be ported to Haiku step by step.
+Unfortunatly some porting is also required in the DRM modules itself.
+
+I know I am crazy, but lets check this.
+
+It does compile already, but does not yet do anything useful, also it does not link of course :D
+I ll add instructions soon how to build the radeondrm.
+
+First DRM module I want to try to port is RADEONDRM as its the smallest driver available.
+
+What I have seen so far that needs porting is
+- PCI related API and logics
+- DMA transfers and such
+- I2C access
+- VM related logics
+- Task injection / scheduling
+- ...
+
+What we else need
+- IOCTL interface to user land
+- Device file interface
+- Some interaction with Radeon accelerant
+- LIBDRM to be ported and tell MESA to use it
+
+Sorry If anythings wrong here, I am just a small programmer guy. :D
+
 Goals
 ------------
  * Sensible defaults with minimal configuration required.
