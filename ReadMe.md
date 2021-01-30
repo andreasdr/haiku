@@ -13,7 +13,7 @@ and yet very powerful.
 WHAAATTTTZ DIS FORK EXACTLY???
 --------------------------------
 
-NOTE: This is my DRM port attempt based on OpenBSDs DRM kernel modules.
+NOTE: This is my DRM port attempt based on OpenBSDs 6.7 DRM kernel modules.
 I choosed OpenBSD because they have ported DRM in a way I think I can maybe somehow cope with.
 Porting directly from Linux would not work for me as it would cost much more time and knowledge.
 
