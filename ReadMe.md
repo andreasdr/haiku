@@ -43,6 +43,8 @@ What we else need
 
 Sorry If anythings wrong here, I am just a small programmer guy. :D
 
+I can list here later files that needs porting love if someone wants to join. I also hang out on IRC in #Haiku channel with the nick andreasdr.
+
 Goals
 ------------
  * Sensible defaults with minimal configuration required.
