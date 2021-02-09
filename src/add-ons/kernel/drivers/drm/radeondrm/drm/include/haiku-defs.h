@@ -373,10 +373,6 @@ typedef int vm_fault_t;
 //./sys/uvm/uvm_extern.h:97:
 typedef int           vm_prot_t;
 
-//
-#define letoh32(x)	(x)
-#define	letoh16(x)	(x)
-
 // types
 typedef int8_t   __s8;
 typedef uint8_t  __u8;
