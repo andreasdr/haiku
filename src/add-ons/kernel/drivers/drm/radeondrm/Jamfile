@@ -1,6 +1,9 @@
 SubDir HAIKU_TOP src add-ons kernel drivers drm radeondrm ;
 
+UsePrivateKernelHeaders ;
+UsePrivateHeaders drivers ;
 UsePrivateHeaders drm ;
+
 UseHeaders [ FDirName drm include ] : true ;
 UseHeaders [ FDirName drm include uapi ] : true ;
 # src add-ons kernel drivers drm radeondrm drm include ;

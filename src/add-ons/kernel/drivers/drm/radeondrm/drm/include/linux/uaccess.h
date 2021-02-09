@@ -117,7 +117,7 @@ pagefault_disabled(void)
 inline unsigned long
 __copy_to_user_inatomic(void *to, const void *from, unsigned len)
 {
-	struct cpu_info *ci = curcpu();
+	struct openbsd_cpu_info *ci = curcpu();
 	int inatomic = ci->ci_inatomic;
 	int error;
 
@@ -131,7 +131,7 @@ __copy_to_user_inatomic(void *to, const void *from, unsigned len)
 inline unsigned long
 __copy_from_user_inatomic(void *to, const void *from, unsigned len)
 {
-	struct cpu_info *ci = curcpu();
+	struct openbsd_cpu_info *ci = curcpu();
 	int inatomic = ci->ci_inatomic;
 	int error;
 

@@ -8,13 +8,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <lock.h>
+
 #define u_int unsigned int
 
 //./sys/param.h:62:
 #define      MAXCOMLEN       16              /* max command name remembered */
-
-// ./sys/errno.h:54
-#define ENOMEM         12      /* Cannot allocate memory */
 
 // ./sys/malloc.h:59:
 #define       M_CANFAIL       0x0004
@@ -28,65 +27,8 @@
 // ./sys/malloc.h:182:
 #define M_DRM                145     /* Direct Rendering Manager */
 
-// ./sys/errno.h:66:
-#define EINVAL         22      /* Invalid argument */
-
-//./sys/sys/errno.h:43:
-#define ENOENT             2       /* No such file or directory */
-
-//sys/sys/errno.h:80:
-#define ERANGE               34      /* Result too large */
-
-//sys/sys/errno.h:72:
-#define ENOSPC               28      /* No space left on device */
-
-//sys/sys/errno.h:151:
-#define ENOSYS              78      /* Function not implemented */
-
-//sys/sys/errno.h:52:
-#define EDEADLK              11      /* Resource deadlock avoided */
-
-//sys/sys/errno.h:60:
-#define EBUSY                16      /* Device busy */
-
-//sys/sys/errno.h:83:
-#define EAGAIN               35      /* Resource temporarily unavailable */
-
-//sys/sys/errno.h:84:
-#define EWOULDBLOCK  EAGAIN  /* Operation would block */
-
-//sys/sys/errno.h:45:
-#define EINTR                4       /* Interrupted system call */
-
 //sys/sys/errno.h:180:
 #define ERESTART    -1      /* restart syscall */
-
-//sys/sys/errno.h
-#define EFAULT               14      /* Bad address */
-
-// sys/sys/errno.h:55:
-#define EACCES               13      /* Permission denied */
-
-// sys/sys/errno.h:98:
-#define EOPNOTSUPP   45      /* Operation not supported */
-
-// sys/sys/fcntl.h:107:
-#define     O_CLOEXEC       0x10000         /* atomically set FD_CLOEXEC */
-
-//sys/sys/errno.h:169:
-#define ENOTSUP             91      /* Not supported */
-
-//sys/sys/errno.h:63:
-#define ENODEV               19      /* Operation not supported by device */
-
-// sys/errno.h:47:
-#define ENXIO            6       /* Device not configured */
-
-// sys/errno.h:86:
-#define EALREADY 37      /* Operation already in progress */
-
-// sys/errno.h:42:
-#define EPERM            1       /* Operation not permitted */
 
 //sys/sys/errno.h:181
 #define EJUSTRETURN -2      /* don't modify regs, just return */
@@ -118,15 +60,6 @@
 // sys/rwlock.h:110:
 #define RW_WRITE               0x0001UL /* exclusive lock */
 
-// sys/errno.h:173:
-#define EPROTO          95      /* Protocol error */
-
-// sys/errno.h:46:
-#define EIO              5       /* Input/output error */
-
-// sys/errno.h:119:
-#define ETIMEDOUT       60      /* Operation timed out */
-
 // sys/param.h:111:
 #define PCATCH          0x100   /* OR'd with pri for tsleep to check signals */
 
@@ -135,12 +68,6 @@
 
 // ./sys/sys/select.h:111:
 #define  NBBY    __NBBY
-
-// sys/sys/errno.h:48:
-#define E2BIG                7       /* Argument list too long */
-
-// sys/sys/errno.h:61:
-#define EEXIST               17      /* File exists */
 
 //
 typedef uint64_t bus_addr_t;
@@ -236,10 +163,6 @@ typedef     u_long bus_space_handle_t;
 
 // sys/sys/fcntl.h:64:
 #define      O_RDWR          0x0002          /* open for reading and writing */
-
-// 
-typedef struct mutex {
-} mutex;
 
 // 
 typedef struct rwlock {
@@ -362,9 +285,11 @@ struct i2c_bitbang_ops {
 	uint32_t	ibo_bits[I2C_NBITS];
 };
 
-typedef struct cpu_info {
-	int ci_inatomic; 
-} cpu_info;
+typedef struct openbsd_cpu_info {
+       int ci_inatomic; 
+} openbsd_cpu_info;
+
+
 
 typedef struct uvm_object {
 } uvm_object;
@@ -607,9 +532,6 @@ struct rasops_info {
 //sys/pool.h:185:
 #define PR_ZERO          0x0008 /* M_ZERO */
 
-//sys/errno.h:69:
-#define ENOTTY           25      /* Inappropriate ioctl for device */
-
 //arch/amd64/include/bus.h:526:
 #define    BUS_DMA_NOCACHE         0x0800  /* map memory uncached */
 
@@ -684,5 +606,20 @@ struct rasops_info {
 
 // arch/amd64/include/bus.h:515:
 #define    BUS_DMA_WAITOK          0x0000  /* safe to sleep (pseudo-flag) */
+
+// openbsd mutexes -> haiku mutexes
+// TODO: I guess for now, we can ignore iplwant, need to discuss
+// TODO: Need also discuss if multiple mutexes are allowed to have the same name
+inline void mtx_init(mutex* lock, int wantipl) {
+	mutex_init(lock, "drm-mutex");
+}
+
+inline void mtx_enter(mutex* lock) {
+	mutex_lock(lock);
+}
+
+inline void mtx_leave(mutex* lock) {
+	mutex_unlock(lock);
+}
 
 #endif

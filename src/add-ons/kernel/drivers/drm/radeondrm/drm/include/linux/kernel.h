@@ -58,8 +58,6 @@
 #define clamp(x, a, b) clamp_t(__typeof(x), x, a, b)
 #define clamp_val(x, a, b) clamp_t(__typeof(x), x, a, b)
 
-#define min(a, b) MIN(a, b)
-#define max(a, b) MAX(a, b)
 #define min3(x, y, z) MIN(x, MIN(y, z))
 #define max3(x, y, z) MAX(x, MAX(y, z))
 
