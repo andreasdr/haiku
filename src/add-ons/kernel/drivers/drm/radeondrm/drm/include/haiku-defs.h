@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <endian.h>
 #include <lock.h>
 
 #define u_int unsigned int
