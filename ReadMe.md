@@ -44,6 +44,25 @@ What we else need
 
 Sorry If anythings wrong here, I am just a small programmer guy. :D
 
+How to build, starting from your home folder. I used a fresh Haiku installation also:
+```bash
+mkdir Development
+cd Development
+mkdir Haiku
+cd Haiku
+git clone https://review.haiku-os.org/buildtools
+git clone https://github.com/andreasdr/haiku.git
+cd haiku
+./configure --cross-tools-source ../buildtools --build-cross-tools x86_64 -j30
+jam -j30
+mkdir generated/objects/haiku/x86_64/release/add-ons/kernel/drivers/drm/radeondrm/drm
+mkdir generated/objects/haiku/x86_64/release/add-ons/kernel/drivers/drm/radeondrm/drm/radeon
+cd src/add-ons/kernel/drivers/drm/radeondrm
+jam
+```
+
+This can be improved of course, but its the way I compile radeondrm currently.
+
 I can list here later files that needs porting love if someone wants to join. I also hang out on IRC in #Haiku channel with the nick andreasdr.
 
 Goals
