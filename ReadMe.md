@@ -53,8 +53,8 @@ cd Haiku
 git clone https://review.haiku-os.org/buildtools
 git clone https://github.com/andreasdr/haiku.git
 cd haiku
-./configure --cross-tools-source ../buildtools --build-cross-tools x86_64 -j30
-jam -j30
+./configure --cross-tools-source ../buildtools --build-cross-tools x86_64
+jam
 mkdir generated/objects/haiku/x86_64/release/add-ons/kernel/drivers/drm/radeondrm/drm
 mkdir generated/objects/haiku/x86_64/release/add-ons/kernel/drivers/drm/radeondrm/drm/radeon
 cd src/add-ons/kernel/drivers/drm/radeondrm
