@@ -55,10 +55,10 @@
 // arch/amd64/include/intrdefs.h:21:
 #define        IPL_NONE        0x0     /* nothing */
 
-// sys/rwlock.h:117:
+// sys/rw_lock.h:117:
 #define RW_NOSLEEP             0x0040UL /* don't wait for the lock */
 
-// sys/rwlock.h:110:
+// sys/rw_lock.h:110:
 #define RW_WRITE               0x0001UL /* exclusive lock */
 
 // sys/param.h:111:
@@ -164,10 +164,6 @@ typedef     u_long bus_space_handle_t;
 
 // sys/sys/fcntl.h:64:
 #define      O_RDWR          0x0002          /* open for reading and writing */
-
-// 
-typedef struct rwlock {
-} rwlock;
 
 // 
 typedef struct task {
@@ -373,6 +369,10 @@ typedef int vm_fault_t;
 //./sys/uvm/uvm_extern.h:97:
 typedef int           vm_prot_t;
 
+//
+#define letoh32(x)	(x)
+#define	letoh16(x)	(x)
+
 // types
 typedef int8_t   __s8;
 typedef uint8_t  __u8;
@@ -429,7 +429,7 @@ typedef uint64_t __be64;
 //sys/malloc.h:60:
 #define M_ZERO          0x0008
 
-//sys/rwlock.h:112:
+//sys/rw_lock.h:112:
 #define RW_DOWNGRADE           0x0004UL /* downgrade exclusive to shared */
 
 //./dev/wscons/wsconsio.h:536:
@@ -532,7 +532,7 @@ struct rasops_info {
 //arch/amd64/include/bus.h:526:
 #define    BUS_DMA_NOCACHE         0x0800  /* map memory uncached */
 
-//sys/rwlock.h:111:
+//sys/rw_lock.h:111:
 #define RW_READ                        0x0002UL /* shared lock */
 
 //arch/amd64/include/bus.h:493:
@@ -607,16 +607,25 @@ struct rasops_info {
 // openbsd mutexes -> haiku mutexes
 // TODO: I guess for now, we can ignore iplwant, need to discuss
 // TODO: Need also discuss if multiple mutexes are allowed to have the same name
-inline void mtx_init(mutex* lock, int wantipl) {
-	mutex_init(lock, "drm-mutex");
-}
+#define mtx_init(lock, wantipl) mutex_init(lock, "drm-mutex")
+#define mtx_enter(lock) mutex_lock(lock);
+#define mtx_leave(lock) mutex_unlock(lock);
 
-inline void mtx_enter(mutex* lock) {
-	mutex_lock(lock);
-}
-
-inline void mtx_leave(mutex* lock) {
-	mutex_unlock(lock);
-}
+// openbsd rwlock -> haiku rw_lock
+#define rwlock rw_lock
+#define rw_init(rwl, name) rw_lock_init(rwl, name)
+// TODO: flags
+//		drm/include/linux/mutex.h:19:#define mutex_trylock(rwl)         (rw_enter(rwl, RW_WRITE | RW_NOSLEEP) == 0)
+//		drm/include/linux/mutex.h:27:// if (rw_enter(rwl, RW_WRITE | RW_INTR) != 0)
+//		drm/include/linux/spinlock.h:61:#define down_read(rwl)                  rw_enter_read(rwl)
+//		drm/include/linux/spinlock.h:62:#define down_read_trylock(rwl)          (rw_enter(rwl, RW_READ | RW_NOSLEEP) == 0)
+//		drm/include/linux/spinlock.h:64:#define down_write(rwl)                 rw_enter_write(rwl)
+//		drm/include/linux/spinlock.h:66:#define downgrade_write(rwl)            rw_enter(rwl, RW_DOWNGRADE)
+//		drm/include/linux/spinlock.h:67:#define read_lock(rwl)                  rw_enter_read(rwl)
+//		drm/include/linux/spinlock.h:69:#define write_lock(rwl)                 rw_enter_write(rwl)
+#define rw_enter(rwl, flags) rw_lock_read_lock(rwl)
+#define rw_exit_read(rwl ) rw_lock_read_unlock(rwl)
+#define rw_enter_write(rwl) rw_lock_write_lock(rwl)
+#define rw_exit_write(rwl) rw_lock_read_unlock(rwl)
 
 #endif
